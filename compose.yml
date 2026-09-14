@@ -1,6 +1,6 @@
 services:
-  challenge:
-    image: max-authorization-challenge:local
+  sandbox:
+    image: max-authorization-sandbox:local
     environment:
       CHALLENGE_SECRET:
     read_only: true
