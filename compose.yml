@@ -3,8 +3,6 @@ services:
     image: max-authorization-challenge:local
     environment:
       CHALLENGE_SECRET:
-    ports:
-      - "8081:8080"
     read_only: true
     tmpfs:
       - /tmp:rw,noexec,nosuid,size=16m
