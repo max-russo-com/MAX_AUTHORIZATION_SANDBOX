@@ -1,4 +1,4 @@
-name: Verifica
+name: Verification
 
 on:
   push:
