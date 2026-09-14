@@ -14,3 +14,4 @@ jobs:
           components: clippy
       - run: cargo test --locked
       - run: cargo clippy --all-targets -- -D warnings
+      - run: docker build -t max-authorization-sandbox:ci .
