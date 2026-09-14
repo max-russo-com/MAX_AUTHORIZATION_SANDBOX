@@ -1,0 +1,7 @@
+.git
+target
+keys
+state
+.DS_Store
+*.tmp
+*.swp

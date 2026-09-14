@@ -1,0 +1,19 @@
+services:
+  challenge:
+    image: max-authorization-challenge:local
+    environment:
+      CHALLENGE_SECRET:
+    ports:
+      - "8081:8080"
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - max-auth-state:/app/state
+
+volumes:
+  max-auth-state:

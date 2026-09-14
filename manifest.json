@@ -1,0 +1,11 @@
+{
+  "schema": "max-authorization-challenge/v1",
+  "challenge_id": "MAX-AUTHORIZATION-CHALLENGE-001",
+  "version": 1,
+  "policy_sequence": 1,
+  "allowed_actions": [
+    "STATUS",
+    "PING"
+  ],
+  "nonce": "MAC-V1-NONCE-001"
+}
