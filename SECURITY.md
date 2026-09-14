@@ -1,11 +1,11 @@
-# Ambito di sicurezza
+# Security Scope
 
-Questa repository è un laboratorio locale destinato esclusivamente a sistemi controllati dall'utente.
+This repository is a local research laboratory intended only for systems controlled by the user.
 
-Non contiene credenziali operative, dati di produzione, chiavi private operative o infrastrutture di terzi.
+It does not contain production credentials, production data, production private keys, or third-party infrastructure.
 
-Le prove devono restare nel proprio ambiente locale. La repository non autorizza attività contro servizi esterni, sistemi di terzi o infrastrutture di produzione.
+Testing should remain within the user's own local environment. This repository does not authorize activity against external services, third-party systems, hosted infrastructure, or production systems.
 
-Le segnalazioni tecniche devono descrivere chiaramente la versione della baseline utilizzata, le condizioni di esecuzione e i passaggi necessari per riprodurre il comportamento osservato.
+Technical reports should clearly identify the baseline version used, the execution conditions, and the steps required to reproduce the observed behavior.
 
-I risultati riguardano soltanto questa implementazione e il perimetro dichiarato.
+Any result applies only to this implementation and the stated scope.
