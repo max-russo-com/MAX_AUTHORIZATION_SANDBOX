@@ -6,6 +6,3 @@ state/
 .DS_Store
 *.tmp
 *.swp
-
-/release_ctfd
-/MAX_AUTHORIZATION_CHALLENGE_CTFD.zip
