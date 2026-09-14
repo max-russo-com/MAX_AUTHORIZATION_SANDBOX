@@ -6,63 +6,29 @@ This repository preserves the original technical baseline and makes it available
 
 ## Purpose
 
-The sandbox evaluates whether a deterministic implementation correctly enforces a human-signed authorization policy.
+The sandbox evaluates whether a deterministic implementation correctly enforces a human-signed authorization policy. A valid signed manifest defines the actions that are allowed, and anything not explicitly authorized must be denied.
 
-A valid signed manifest defines the actions that are allowed. Anything not explicitly authorized must be denied.
-
-The baseline exposes three actions:
-
-- `STATUS`
-- `PING`
-- `READ_SECRET`
-
-The distributed valid manifest authorizes `STATUS` and `PING`, but not `READ_SECRET`.
+The baseline exposes three actions: `STATUS`, `PING`, and `READ_SECRET`. The distributed valid manifest authorizes `STATUS` and `PING`, but not `READ_SECRET`.
 
 ## Evaluation criterion
 
-The local secret is intentionally not valuable and may be chosen by the person running the sandbox. Knowing the secret value is therefore not the objective.
-
-The meaningful security property is whether the official unmodified baseline can be made to execute `READ_SECRET` while the active valid manifest still does not authorize that action.
+The local secret is intentionally not valuable and may be chosen by the person running the sandbox. Knowing its value is not the objective. The relevant property is whether the official baseline can execute `READ_SECRET` while the active valid manifest still does not authorize that action.
 
 Researchers may modify separate copies for analysis, debugging, instrumentation, testing, or experimentation. Any claimed result should ultimately be reproducible against the official baseline without modifying or removing the authorization enforcement being evaluated.
 
 ## Contents
 
-The repository includes the Rust authorization implementation, the signed baseline manifest, the dedicated trusted administrative public key, SPHINCS+ / MAXSIG verification logic, persistent policy-state and rollback protection, Docker packaging, and automated tests.
+The repository includes the Rust authorization implementation, signed baseline artifacts, the dedicated trusted administrative public key, SPHINCS+ / MAXSIG verification logic, persistent policy-state and rollback protection, Docker packaging, and automated tests.
 
 No production MAX private keys, production credentials, production data, or third-party infrastructure are included.
 
-## Running locally
+## Local execution
 
-The sandbox is intended to run only on systems controlled by the user.
+The sandbox is intended to run only on systems controlled by the user. The Rust implementation can be built and tested locally with Cargo. Docker packaging is also included.
 
-With Rust installed:
+The default Docker Compose configuration publishes no host port, so the container is not exposed as a network service by default. No hosted verifier or remote service is required.
 
-```bash
-cargo test --locked
-cargo run -- status
-cargo run -- ping
-cargo run -- read-secret
-```
-
-The baseline should allow `status` and `ping` and deny `read-secret`.
-
-To provide a local test secret:
-
-```bash
-export CHALLENGE_SECRET='LOCAL_TEST_SECRET'
-```
-
-The historical environment-variable and binary names retain the word `challenge` because they are part of the preserved baseline.
-
-With Docker:
-
-```bash
-docker build -t max-authorization-sandbox:local .
-CHALLENGE_SECRET='LOCAL_TEST_SECRET' docker compose up
-```
-
-The Docker Compose configuration publishes the service only on the local loopback interface (`127.0.0.1`). No hosted verifier or remote service is required.
+Historical internal names containing the word `challenge` are preserved where they are part of the original technical baseline.
 
 ## Security scope
 
