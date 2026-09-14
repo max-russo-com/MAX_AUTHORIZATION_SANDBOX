@@ -2,7 +2,7 @@
 
 A local, reproducible authorization sandbox derived from the 2026 MAX Authorization Challenge.
 
-This repository preserves the original technical baseline and makes it available as a self-contained local laboratory. It has no dependency on CTFd, a hosted verifier, or any production MAX infrastructure.
+This repository preserves the original technical baseline and makes it available as a self-contained local laboratory. It has no dependency on CTFd, Render, a hosted verifier, or any production MAX infrastructure.
 
 ## Purpose
 
@@ -62,7 +62,7 @@ docker build -t max-authorization-sandbox:local .
 CHALLENGE_SECRET='LOCAL_TEST_SECRET' docker compose up
 ```
 
-The service is then exposed locally through the Docker configuration in `compose.yml`.
+The Docker Compose configuration publishes the service only on the local loopback interface (`127.0.0.1`). No hosted verifier or remote service is required.
 
 ## Security scope
 
@@ -78,4 +78,4 @@ An unsuccessful test does not prove the absolute security of MAX, MAX IoT, SPHIN
 
 ## License
 
-A license will be selected before the repository is made public.
+This repository is released under the MIT License. See `LICENSE`.
