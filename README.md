@@ -1,23 +1,81 @@
 # MAX Authorization Sandbox
 
-Repository locale e riproducibile derivata dalla MAX Authorization Challenge 2026.
+A local, reproducible authorization sandbox derived from the 2026 MAX Authorization Challenge.
 
-Questa versione conserva la baseline tecnica originale e la rende disponibile come laboratorio locale indipendente da CTFd e da servizi remoti.
+This repository preserves the original technical baseline and makes it available as a self-contained local laboratory. It has no dependency on CTFd, a hosted verifier, or any production MAX infrastructure.
 
-## Contenuto
+## Purpose
 
-La repository include il codice Rust, gli artefatti firmati della baseline, la chiave pubblica amministrativa dedicata, la configurazione Docker e i test automatici.
+The sandbox evaluates whether a deterministic implementation correctly enforces a human-signed authorization policy.
 
-## Principio
+A valid signed manifest defines the actions that are allowed. Anything not explicitly authorized must be denied.
 
-La macchina applica una politica firmata e consente soltanto le azioni esplicitamente previste dal manifest valido. Tutto ciò che non è autorizzato deve essere negato.
+The baseline exposes three actions:
 
-## Esecuzione
+- `STATUS`
+- `PING`
+- `READ_SECRET`
 
-La sandbox è progettata per essere eseguita esclusivamente su sistemi controllati dall'utente, tramite Rust o Docker.
+The distributed valid manifest authorizes `STATUS` and `PING`, but not `READ_SECRET`.
 
-Alcuni nomi interni mantengono il termine `challenge` perché fanno parte della baseline originale e degli artefatti distribuiti.
+## Evaluation criterion
 
-## Risultati
+The local secret is intentionally not valuable and may be chosen by the person running the sandbox. Knowing the secret value is therefore not the objective.
 
-I risultati ottenuti riguardano soltanto questa implementazione e le condizioni in cui viene eseguita. Un esito negativo non costituisce una prova assoluta di sicurezza di MAX, SPHINCS+ o di altri sistemi.
+The meaningful security property is whether the official unmodified baseline can be made to execute `READ_SECRET` while the active valid manifest still does not authorize that action.
+
+Researchers may modify separate copies for analysis, debugging, instrumentation, testing, or experimentation. Any claimed result should ultimately be reproducible against the official baseline without modifying or removing the authorization enforcement being evaluated.
+
+## Contents
+
+The repository includes the Rust authorization implementation, the signed baseline manifest, the dedicated trusted administrative public key, SPHINCS+ / MAXSIG verification logic, persistent policy-state and rollback protection, Docker packaging, and automated tests.
+
+No production MAX private keys, production credentials, production data, or third-party infrastructure are included.
+
+## Running locally
+
+The sandbox is intended to run only on systems controlled by the user.
+
+With Rust installed:
+
+```bash
+cargo test --locked
+cargo run -- status
+cargo run -- ping
+cargo run -- read-secret
+```
+
+The baseline should allow `status` and `ping` and deny `read-secret`.
+
+To provide a local test secret:
+
+```bash
+export CHALLENGE_SECRET='LOCAL_TEST_SECRET'
+```
+
+The historical environment-variable and binary names retain the word `challenge` because they are part of the preserved baseline.
+
+With Docker:
+
+```bash
+docker build -t max-authorization-sandbox:local .
+CHALLENGE_SECRET='LOCAL_TEST_SECRET' docker compose up
+```
+
+The service is then exposed locally through the Docker configuration in `compose.yml`.
+
+## Security scope
+
+This repository is a local research artifact. It does not authorize testing against external services, third-party systems, hosted infrastructure, or production MAX systems.
+
+See `SECURITY.md` for scope and reporting guidance.
+
+## Limitations
+
+A demonstrated authorization failure would apply to this implementation and its tested trust assumptions.
+
+An unsuccessful test does not prove the absolute security of MAX, MAX IoT, SPHINCS+, post-quantum signatures, or authorization systems in general. It means only that no authorization failure was demonstrated within the tested scope and conditions.
+
+## License
+
+A license will be selected before the repository is made public.
