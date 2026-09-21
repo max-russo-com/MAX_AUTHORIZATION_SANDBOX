@@ -4,6 +4,8 @@ A local, reproducible sandbox for testing a signed authorization model.
 
 The goal is simple: determine whether a deterministic implementation correctly enforces a human-signed authorization policy and refuses actions that are not explicitly authorized.
 
+Project page: https://www.max-russo.com/authorization-sandbox.php
+
 ## Purpose
 
 A valid signed manifest defines the actions that are allowed. Anything not explicitly authorized must be denied.
@@ -49,6 +51,8 @@ This repository isolates and makes testable one authorization principle explored
 The sandbox is not a complete representation, replica, or security model of MAX App or MAX IoT. Those systems are broader and require their own review, validation, adversarial testing, and independent audit.
 
 The purpose of this repository is to make this specific authorization and trust-chain principle easy to inspect, reproduce, challenge, and audit independently.
+
+For broader project context, see https://www.max-russo.com/.
 
 ## Security scope
 
