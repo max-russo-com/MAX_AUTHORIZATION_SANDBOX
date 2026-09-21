@@ -44,6 +44,46 @@ The default Docker Compose configuration publishes no host port, so the containe
 
 No remote service is required for the evaluation.
 
+## Quick start
+
+Clone the repository and enter the project directory:
+
+```bash
+git clone https://github.com/max-russo-com/MAX_AUTHORIZATION_SANDBOX.git
+cd MAX_AUTHORIZATION_SANDBOX
+```
+
+Run the baseline tests:
+
+```bash
+cargo test --locked
+```
+
+Verify the distributed signed manifest:
+
+```bash
+cargo run --locked --quiet --bin verify_manifest
+```
+
+Check the two authorized actions:
+
+```bash
+cargo run --locked --quiet --bin max_authorization_challenge -- status
+cargo run --locked --quiet --bin max_authorization_challenge -- ping
+```
+
+The expected outputs are `SYSTEM_OK` and `PONG`.
+
+Now set a local test secret and request the unauthorized action:
+
+```bash
+CHALLENGE_SECRET=LOCAL_TEST_SECRET cargo run --locked --quiet --bin max_authorization_challenge -- read-secret
+```
+
+The baseline should return `DENY` and must not reveal `LOCAL_TEST_SECRET`.
+
+The research objective is to make the official baseline execute `READ_SECRET` while the active valid manifest still does not authorize it, without modifying or removing the authorization enforcement being evaluated.
+
 ## Relationship to MAX
 
 This repository isolates and makes testable one authorization principle explored in the broader MAX project: a machine should execute only actions explicitly authorized by a valid policy signed by a trusted administrator.
