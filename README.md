@@ -44,17 +44,17 @@ No remote service is required for the evaluation.
 
 ## Relationship to MAX
 
-This repository is a small, isolated implementation of the authorization model explored in the broader MAX project.
+This repository isolates and makes testable one authorization principle explored in the broader MAX project: a machine should execute only actions explicitly authorized by a valid policy signed by a trusted administrator.
 
-It is intended to make the core trust-chain concept easy to inspect, reproduce, challenge, and audit independently.
+The sandbox is not a complete representation, replica, or security model of MAX App or MAX IoT. Those systems are broader and require their own review, validation, adversarial testing, and independent audit.
 
-It does not establish the security of MAX App, MAX IoT, or any other system. Those systems require their own review, validation, adversarial testing, and independent audit.
+The purpose of this repository is to make this specific authorization and trust-chain principle easy to inspect, reproduce, challenge, and audit independently.
 
 ## Security scope
 
 This repository is a local research artifact. It does not authorize testing against external services, third-party systems, or production systems.
 
-See `SECURITY.md` for scope and reporting guidance.
+Reproducible bypasses, technical findings, and related analysis may be reported publicly through this repository's GitHub Issues. See `SECURITY.md` for scope and reporting guidance.
 
 ## Limitations
 
